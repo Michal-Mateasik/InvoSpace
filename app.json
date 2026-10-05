@@ -1,0 +1,45 @@
+{
+  "expo": {
+    "name": "InvoSpace",
+    "slug": "invospace",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/images/icon.png",
+    "scheme": "invospace",
+    "userInterfaceStyle": "light",
+    "ios": {
+      "supportsTablet": false
+    },
+    "plugins": [
+      "expo-router",
+      [
+        "expo-splash-screen",
+        {
+          "backgroundColor": "#208AEF",
+          "image": "./assets/images/splash-icon.png",
+          "imageWidth": 76
+        }
+      ],
+      "expo-sqlite",
+      "@react-native-community/datetimepicker",
+      "expo-sharing"
+    ],
+    "experiments": {
+      "typedRoutes": true
+    },
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "a4e4a85b-fd5e-47b0-91f0-61cac6b9ba49"
+      }
+    },
+    "owner": "mn1chos-team",
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "android": {},
+    "updates": {
+      "url": "https://u.expo.dev/a4e4a85b-fd5e-47b0-91f0-61cac6b9ba49"
+    }
+  }
+}
