@@ -5,8 +5,6 @@ Tento súbor je hlavný kontext pre vývoj aplikácie. Prečítaj ho celý pred 
 ## 1. Kontext projektu
 
 - **InvoSpace** je mobilná aplikácia na evidenciu dokladov (najmä blokov z pokladní) pre iPhone.
-- Ide o **školský testovací projekt**. Vyučujúci schválil, že kód píše AI. Študent (Michal) ho však musí vedieť obhájiť, preto je zrozumiteľnosť kódu dôležitejšia než šikovnosť.
-- Michal **ešte nerobil mobilnú aplikáciu**. Má IT administrátorské skúsenosti (Microsoft 365, Intune, Jamf), takže ladenie a terminál mu nie sú cudzie, ale React Native a TypeScript sú pre neho nové.
 - Vývoj prebieha na **Windows notebooku bez Macu**. Testovanie prebieha na **fyzickom iPhone cez aplikáciu Expo Go**.
 - Jazyk používateľského rozhrania: **slovenčina**. Mena: **EUR**.
 
