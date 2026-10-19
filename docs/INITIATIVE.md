@@ -29,8 +29,7 @@ Vytvoriť mobilnú aplikáciu pre iPhone, v ktorej používateľ bloček **zaevi
 | --- | --- |
 | **Používateľ** (majiteľ firmy, zamestnanec) | Rýchlo a bez prepisovania evidovať bločky, mať prehľad o výdavkoch, nestratiť doklady. |
 | **Účtovník** | Správne a úplné podklady: číslo dokladu, dodávateľ, IČO, základ a DPH po sadzbách, predkontácia, bez ručného prepisovania. |
-| **Vyučujúci** (školský projekt) | Funkčný, zrozumiteľný a obhájiteľný projekt; schválil, že kód píše AI. |
-| **Autor** (Michal Mateasik) | Vedieť projekt vysvetliť a obhájiť, preto je zrozumiteľnosť kódu dôležitejšia než vychytávky. |
+| **Vyučujúci** (školský projekt) | Funkčný, zrozumiteľný a obhájiteľný projekt|
 
 ## 4. Ciele a kritériá úspechu
 
@@ -129,7 +128,7 @@ Vývoj prebiehal po fázach; po každej fáze nasledovalo vysvetlenie a otestova
 - Funkcia je otestovaná na iPhone v Expo Go (Michalom).
 - Texty v UI sú po slovensky, sumy `12,50 €`, dátumy `3. 10. 2026`.
 - Chyby (sieť, súbory, databáza) sú ošetrené a aplikácia nespadne.
-- Kód a komentáre sú zrozumiteľné (identifikátory po anglicky, komentáre po slovensky); README je aktualizované.
+- Kód a komentáre sú zrozumiteľné; README je aktualizované.
 
 ## 11. Stav a otvorené položky
 

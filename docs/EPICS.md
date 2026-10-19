@@ -187,9 +187,7 @@ Priorita je podľa MoSCoW (Must / Should / Could).
 
 ## EP-10 – Distribúcia a dokumentácia
 
-**Popis:** Aplikáciu je možné ukázať vybraným ľuďom a projekt je zdokumentovaný tak, aby ho autor vedel obhájiť.
-
-**Hodnota:** Prezentovateľnosť a obhájiteľnosť školského projektu.
+**Popis:** Aplikáciu je možné ukázať vybraným ľuďom a projekt je zdokumentovaný.
 
 **V rozsahu:** zdieľanie cez Expo Go a EAS Update (pre členov organizácie na expo.dev), README, CLAUDE.md, agilné dokumenty (INITIATIVE, EPICS, USER STORIES), repozitár na GitHube.
 

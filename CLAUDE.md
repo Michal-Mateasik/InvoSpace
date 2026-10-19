@@ -166,6 +166,3 @@ Pracuj **po jednej fáze**. Po každej fáze sa zastav a:
 - Pri chybe požiadaj Michala o presné znenie chyby z terminálu alebo screenshot z telefónu.
 - Ak meníš niečo, čo vyžaduje reštart (nový balík, konfigurácia), výslovne to povedz.
 
-## 12. Dokumentácia pre obhajobu
-
-Priebežne udržuj súbor `README.md` po slovensky: popis aplikácie, použité technológie, štruktúra projektu, dátový model a návod na spustenie. Ku každej fáze doplň krátku poznámku, čo pribudlo.
