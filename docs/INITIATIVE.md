@@ -7,7 +7,7 @@
 | **Vlastník** | Michal Mateasik |
 | **Začiatok vývoja** | 3. 10. 2026 |
 | **Dátum dokumentu** | 19. 10. 2026 |
-| **Stav** | Realizované (verzia 1.0); overenie importu do reálnej Pohody je otvorená položka |
+| **Stav** | Realizované (verzia 1.0); import XML do reálnej Pohody a rozpoznanie dátumu v offline QR kóde overené používateľom |
 | **Súvisiace dokumenty** | [EPICS.md](EPICS.md), [USER_STORIES.md](USER_STORIES.md), [README.md](../README.md) |
 
 ## 1. Problém
@@ -38,7 +38,7 @@ Vytvoriť mobilnú aplikáciu pre iPhone, v ktorej používateľ bloček **zaevi
 | C1 | Zrýchliť zaevidovanie bločku | Z naskenovaného QR kódu sa predvyplní dodávateľ, IČO, dátum, suma, číslo dokladu a rozpis DPH; používateľ ich len skontroluje a uloží. |
 | C2 | Neprísť o doklady | Doklady aj fotky sú trvalo uložené v telefóne, dajú sa zálohovať do jedného súboru a obnoviť. |
 | C3 | Oddeliť evidenciu firiem | Doklady, číslovanie, prehľady a export patria vždy jednej firme. |
-| C4 | Dať účtovníkovi použiteľné podklady | Mesačný XML súbor je platný voči oficiálnym schémam Stormware a obsahuje všetky potrebné údaje. |
+| C4 | Dať účtovníkovi použiteľné podklady | Mesačný XML súbor je platný voči oficiálnym schémam Stormware, obsahuje všetky potrebné údaje a **naimportuje sa do Pohody bez chyby (overené v reálnej Pohode)**. |
 | C5 | Poskytnúť prehľad výdavkov | Mesačný aj ročný prehľad so súčtami podľa kategórií; súčty sedia so zoznamom dokladov. |
 | C6 | Spoľahlivosť | Aplikácia nespadne pri chybe siete, súborov ani databázy a používateľ dostane zrozumiteľnú hlášku. |
 | C7 | Dostupnosť bez Macu | Aplikácia sa vyvíja na Windows a beží na iPhone cez Expo Go; dá sa zdieľať s vybranými ľuďmi. |
@@ -88,7 +88,7 @@ Vytvoriť mobilnú aplikáciu pre iPhone, v ktorej používateľ bloček **zaevi
 | EP-4 | Firmy a číslovanie dokladov | Hotové |
 | EP-5 | DPH a sumy | Hotové |
 | EP-6 | Prehľady | Hotové |
-| EP-7 | Export do Pohody | Hotové (import do reálnej Pohody čaká na overenie) |
+| EP-7 | Export do Pohody | Hotové (import do reálnej Pohody overený) |
 | EP-8 | Záloha a obnova dát | Hotové |
 | EP-9 | Používateľský zážitok a spoľahlivosť | Hotové |
 | EP-10 | Distribúcia a dokumentácia | Hotové |
@@ -115,11 +115,11 @@ Vývoj prebiehal po fázach; po každej fáze nasledovalo vysvetlenie a otestova
 | Riziko / závislosť | Dopad | Opatrenie / stav |
 | --- | --- | --- |
 | **eKasa API je neoficiálne** (používa ho aj webová overovacia služba) a môže sa zmeniť alebo obmedziť počet dopytov | Nefunguje automatické predvyplnenie | Rozhranie je izolované v `ekasa.ts`; vždy funguje ručné zadanie. |
-| **Import do Pohody nebol overený v reálnej Pohode** | Pohoda môže doklad odmietnuť (číselný rad, pokladňa, predkontácia) | XML je validné voči XSD; zostáva overiť reálnym importom a podľa chyby doladiť. |
+| **Import do Pohody** (formát je prísny; Pohoda môže doklad odmietnuť pre číselný rad, pokladňu alebo predkontáciu) | Doklady by sa nenaimportovali | **Overené:** XML je validné voči XSD a reálny import do Pohody prebehol bez chyby. Pri zmene generátora treba validáciu aj import zopakovať. |
 | **Expo Go podporuje len najnovšie SDK** | Po vydaní nového SDK sa appka v aktualizovanom Expo Go neotvorí | Treba presunúť projekt na novšie SDK a znova publikovať. |
 | **Dáta sú len v telefóne (viazané na Expo Go)** | Pri odinštalovaní Expo Go sa stratia | Záloha a obnova dát v Nastaveniach; zálohu treba robiť pravidelne. |
 | **Záloha nie je šifrovaná** | Citlivé údaje v súbore zálohy | Používateľ ho ukladá na bezpečné miesto; upozornenie je v appke. |
-| **Poradie dátumu v offline QR** nie je v zdrojoch jednoznačné | Možný nesprávny dátum pri offline bločku | Dátum je vo formulári viditeľný a dá sa opraviť. |
+| **Poradie dátumu v offline QR** nie je v oficiálnych zdrojoch jednoznačne uvedené | Možný nesprávny dátum pri offline bločku | **Overené:** aplikácia skúša oba tvary a dátum pri reálnom offline bločku rozpoznala správne. Dátum je navyše vo formulári viditeľný a dá sa opraviť. |
 | **Zdieľanie len cez členov organizácie na expo.dev** | Appku otvoria len pozvaní ľudia | Pozvánky do organizácie `mn1chos-team`. |
 
 ## 10. Definícia hotového (Definition of Done)
@@ -133,5 +133,6 @@ Vývoj prebiehal po fázach; po každej fáze nasledovalo vysvetlenie a otestova
 ## 11. Stav a otvorené položky
 
 - Všetky epicy sú dodané a používateľom odskúšané na iPhone.
-- **Otvorené:** reálny import XML do Pohody, overenie offline QR dátumu na skutočnom offline bločku.
+- **Overené používateľom:** import XML do reálnej Pohody a rozpoznanie dátumu v offline QR kóde.
+- **Otvorené:** posúdenie, či údaje z eKasa a fotka stačia na zákonnú archiváciu (otázka na účtovníka), a presun na novšie SDK po vydaní nového SDK.
 - **Nerealizované nápady** (mimo dohodnutého rozsahu): hľadanie v dokladoch, hromadné mazanie, tmavý režim, presun dokladu medzi firmami, uloženie celej odpovede eKasa, publikovanie v App Store.

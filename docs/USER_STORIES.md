@@ -43,10 +43,10 @@ Používateľské príbehy epicov z [EPICS.md](EPICS.md) (iniciatíva [INIT-1](I
 | US-26 | Upozornenie na doklady bez rozpisu DPH | EP-5 | Should | Hotové |
 | US-27 | Mesačný prehľad | EP-6 | Should | Hotové |
 | US-28 | Ročný prehľad | EP-6 | Could | Hotové |
-| US-29 | Export mesačného XML pre Pohodu | EP-7 | Must | Hotové\* |
+| US-29 | Export mesačného XML pre Pohodu | EP-7 | Must | Hotové |
 | US-30 | Nastavenia exportu pri firme | EP-7 | Must | Hotové |
-| US-31 | Predkontácia kategórie v texte dokladu | EP-7 | Should | Hotové\* |
-| US-32 | Bez duplicít pri opakovanom importe | EP-7 | Should | Hotové\* |
+| US-31 | Predkontácia kategórie v texte dokladu | EP-7 | Should | Hotové |
+| US-32 | Bez duplicít pri opakovanom importe | EP-7 | Should | Hotové |
 | US-33 | Zdieľanie exportu | EP-7 | Must | Hotové |
 | US-34 | Platnosť XML voči schémam Stormware | EP-7 | Must | Hotové |
 | US-35 | Záloha dát | EP-8 | Should | Hotové |
@@ -58,7 +58,7 @@ Používateľské príbehy epicov z [EPICS.md](EPICS.md) (iniciatíva [INIT-1](I
 | US-41 | Zdieľanie aplikácie s vybranými ľuďmi | EP-10 | Could | Hotové |
 | US-42 | Dokumentácia na obhajobu | EP-10 | Must | Hotové |
 
-\* Reálny import do Pohody čaká na overenie vo firemnej Pohode.
+Import XML do reálnej Pohody a rozpoznanie dátumu v offline QR kóde overil používateľ.
 
 ---
 
@@ -145,7 +145,7 @@ Používateľské príbehy epicov z [EPICS.md](EPICS.md) (iniciatíva [INIT-1](I
 **Akceptačné kritériá:**
 - Offline kód (údaje oddelené dvojbodkami) sa rozpozná bez dopytu do siete.
 - Z kódu sa vyčíta suma, dátum a číslo dokladu; formulár upozorní, že treba doplniť dodávateľa.
-- Dátum sa dá vo formulári opraviť (poradie dátumu v kóde sa odhaduje).
+- Poradie dátumu v kóde aplikácia rozpozná sama (skúša oba tvary a berie reálny dátum od roku 2019 po dnes); rozpoznanie je overené na reálnom offline bločku. Dátum sa dá vo formulári aj opraviť.
 
 ### US-10 – Záložný postup pri chybe skenovania
 **Ako** používateľ **chcem**, aby sa pri chybe skenovania nič nezasekne a mohol som doklad doplniť ručne, **aby** som o doklad neprišiel.
@@ -331,7 +331,7 @@ Používateľské príbehy epicov z [EPICS.md](EPICS.md) (iniciatíva [INIT-1](I
 - Doklad obsahuje: interné číslo ako požadované číslo dokladu, číslo z bločku ako pôvodný doklad, dátum, dodávateľa a IČO, pokladňu, položku za každú sadzbu DPH (základ a DPH) a poznámku.
 - Doklady sú zoradené od najstaršieho; fotky sa neexportujú.
 - Diakritika je zapísaná číselnými odkazmi, takže súbor je platný pri akomkoľvek kódovaní.
-- Import do Pohody prebehne bez chyby (**čaká na overenie v reálnej Pohode**).
+- Import do Pohody prebehne bez chyby (**overené v reálnej Pohode**).
 
 ### US-30 – Nastavenia exportu pri firme
 **Ako** používateľ **chcem** zadať údaje pre Pohodu raz pri firme, **aby** sa ich aplikácia nepýtala pri každom exporte.

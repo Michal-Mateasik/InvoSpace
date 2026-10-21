@@ -3,6 +3,16 @@
 Mobilná aplikácia na evidenciu dokladov (najmä blokov z pokladní) pre iPhone. Školský projekt.
 Všetky dáta sú uložené lokálne v telefóne, bez servera a bez prihlasovania.
 
+## Dokumentácia projektu
+
+| Dokument | Obsah |
+| --- | --- |
+| [SPEC.md](SPEC.md) | Špecifikácia: ČO aplikácia robí (problém, roly, funkcie, obmedzenia, mimo rozsahu, otvorené otázky) |
+| [docs/USER_STORIES.md](docs/USER_STORIES.md) | Používateľské príbehy s akceptačnými kritériami (KEDY JE HOTOVO) |
+| [DESIGN.md](DESIGN.md) | Design dokument: AKO je aplikácia postavená (architektúra, dátový model, rozhrania, štruktúra kódu) |
+| [docs/INITIATIVE.md](docs/INITIATIVE.md), [docs/EPICS.md](docs/EPICS.md) | Iniciatíva a epicy |
+| [CLAUDE.md](CLAUDE.md) | Pokyny a pravidlá pre vývoj s AI |
+
 ## Použité technológie
 
 - **TypeScript** (strict mode)
@@ -97,7 +107,7 @@ Kontrola typov: `npm run typecheck`.
   - `src/services/pohoda.ts` – generátor XML (dataPack 2.0, výdavkový pokladničný doklad `voucher`). Interné číslo → číslo dokladu, číslo z bločku → `originalDocument`, dodávateľ a IČO → `partnerIdentity`, DPH → jedna položka na sadzbu (základ + DPH).
   - Rozpis DPH po sadzbách (`receipt_vat`, migrácia č. 5): z eKasa sa načíta celý (`vatSummary`), pri ručnom doklade sa zvolí sadzba (23/19/5 %, do 2024 20/10 %) a základ aj DPH sa dopočítajú. Staršie doklady so známou sumou bez DPH dostali sadzbu odhadom pri migrácii.
   - Doklad bez rozpisu DPH sa exportuje ako bez DPH a aplikácia na to pred exportom upozorní.
-  - XML je čisté ASCII (diakritika ako `&#x…;`), preto je platné pri akomkoľvek kódovaní. Výstup bol overený validáciou voči oficiálnym XSD schémam Stormware.
+  - XML je čisté ASCII (diakritika ako `&#x…;`), preto je platné pri akomkoľvek kódovaní. Výstup bol overený validáciou voči oficiálnym XSD schémam Stormware a reálnym importom do Pohody (prebehol bez chyby).
   - `id` balíka je pre mesiac stále rovnaké (`InvoSpace_2026-10`), takže Pohoda pri opakovanom importe doklady nezdvojí.
 
 - **Firmy (po fáze 5)** – bločky sa evidujú pod firmou.

@@ -12,7 +12,7 @@ Epicy iniciatívy [INIT-1](INITIATIVE.md). Používateľské príbehy každého 
 | EP-4 | Firmy a číslovanie dokladov | US-18 až US-23 | Must | Hotové |
 | EP-5 | DPH a sumy | US-24 až US-26 | Must | Hotové |
 | EP-6 | Prehľady | US-27 až US-28 | Should | Hotové |
-| EP-7 | Export do Pohody | US-29 až US-34 | Must | Hotové (reálny import čaká na overenie) |
+| EP-7 | Export do Pohody | US-29 až US-34 | Must | Hotové (import do reálnej Pohody overený) |
 | EP-8 | Záloha a obnova dát | US-35 až US-36 | Should | Hotové |
 | EP-9 | Používateľský zážitok a spoľahlivosť | US-37 až US-40 | Should | Hotové |
 | EP-10 | Distribúcia a dokumentácia | US-41 až US-42 | Could | Hotové |
@@ -143,7 +143,7 @@ Priorita je podľa MoSCoW (Must / Should / Could).
 
 **Kritériá dokončenia:**
 - XML je platné voči oficiálnym schémam Stormware.
-- XML sa dá naimportovať do Pohody bez chyby (**čaká na overenie v reálnej Pohode**).
+- XML sa dá naimportovať do Pohody bez chyby (**overené v reálnej Pohode**).
 
 **Súvisiace stories:** US-29, US-30, US-31, US-32, US-33, US-34
 
