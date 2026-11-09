@@ -90,7 +90,7 @@ Každá funkcia je jedna veta z pohľadu používateľa. Kritériá hotovosti s�
 - Dopyt na eKasa má časový limit približne 10 sekúnd.
 - Export musí zodpovedať formátu importu Pohody (STORMWARE), schéma verzia 2.
 - Povolenia (kamera) sa pýtajú až v momente, keď sú potrebné.
-- Expo Go podporuje vždy len najnovšie SDK, preto aplikácia beží na SDK 57 a po vydaní nového SDK sa musí presunúť.
+- Expo Go podporuje vždy len najnovšie SDK, preto aplikácia beží na SDK 58 a po vydaní nového SDK sa musí presunúť.
 - Zdieľať aplikáciu s ďalšími ľuďmi možno len cez EAS Update (nahráva sa len kód) a len členom organizácie na expo.dev.
 
 ## 5. Mimo rozsahu

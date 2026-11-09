@@ -45,17 +45,17 @@ Aplikácia je len klient bežiaci v telefóne. Nemá vlastný server ani autenti
 | Oblasť | Voľba | Verzia |
 | --- | --- | --- |
 | Jazyk | TypeScript, strict | ~6.0 |
-| Framework | React Native + Expo (managed, Expo Go) | Expo SDK 57, React Native 0.86, React 19.2 |
-| Navigácia | Expo Router (taby + stack, typované trasy) | ~57 |
-| Databáza | `expo-sqlite` | ~57 |
-| Súbory | `expo-file-system` (nové API `File`, `Directory`, `Paths`) | ~57 |
-| Kamera, QR, blesk | `expo-camera` (`CameraView`) | ~57 |
-| Fotka z kamery / galérie | `expo-image-picker` | ~57 |
-| Dátum | `@react-native-community/datetimepicker` | 9.1 |
-| Zdieľanie | `expo-sharing` | ~57 |
-| Vibrácie | `expo-haptics` | ~57 |
+| Framework | React Native + Expo (managed, Expo Go) | Expo SDK 58, React Native 0.88, React 19.3 |
+| Navigácia | Expo Router (taby + stack, typované trasy) | ~58 |
+| Databáza | `expo-sqlite` | ~58 |
+| Súbory | `expo-file-system` (nové API `File`, `Directory`, `Paths`) | ~58 |
+| Kamera, QR, blesk | `expo-camera` (`CameraView`) | ~58 |
+| Fotka z kamery / galérie | `expo-image-picker` | ~58 |
+| Dátum | `@react-native-community/datetimepicker` | 9.2 |
+| Zdieľanie | `expo-sharing` | ~58 |
+| Vibrácie | `expo-haptics` | ~58 |
 | Grafy | `react-native-svg` (vlastný stĺpcový graf) | 15 |
-| Aktualizácie pre zdieľanie | `expo-updates` (EAS Update) | ~57 |
+| Aktualizácie pre zdieľanie | `expo-updates` (EAS Update) | ~58 |
 
 Všetky balíky sú súčasťou Expo Go, takže nie je potrebný vlastný build. Balíky sa inštalujú cez `npx expo install`, aby verzie sedeli so SDK.
 
@@ -200,6 +200,7 @@ Migrácia a zápis novej verzie prebehnú v jednej transakcii. Stará migrácia 
 - Pri zmazaní dokladu sa zmaže aj súbor (`files.deleteImage`); pri úprave s novou fotkou sa starý súbor zmaže až po úspešnom zápise. Pri chybe zápisu sa novo skopírovaná fotka zmaže.
 - Export a záloha sa zapisujú do `Paths.cache` a odtiaľ idú na zdieľanie.
 - Pri obnove zo zálohy sa fotky zapisujú do nového priečinka `Paths.document/restored_<čas>/`.
+- Od SDK 58 sú `File.write()`, `FileHandle.writeBytes()` a `FileHandle.readBytes()` asynchrónne. Tam, kde je dôležité, aby bol zápis hotový alebo aby sa poradie nepomiešalo (zápis exportu pred zdieľaním, postupný zápis ZIP zálohy, čítanie ZIP pri obnove), kód používa synchrónne varianty `writeSync`, `writeBytesSync` a `readBytesSync`.
 
 ## 7. Stav a načítanie dát
 
@@ -361,3 +362,4 @@ Automatizované testy v repozitári nie sú. Overovanie prebiehalo takto:
 - Po vydaní nového SDK treba projekt presunúť, inak sa v aktualizovanom Expo Go neotvorí.
 - `Alert.prompt` (premenovanie kategórie, zadanie predkontácie) funguje len na iOS.
 - Nie sú automatizované testy v repozitári.
+- Súbor `.npmrc` s `legacy-peer-deps=true` je potrebný, lebo balík `@react-native-community/datetimepicker` 9.2 uvádza ako voliteľnú závislosť `react-native-windows`, ktorá vyžaduje staršiu verziu React Native. Appka beží len na iPhone, ale bez tohto nastavenia `npm install` zlyhá. Nastavenie skrýva aj iné konflikty peer závislostí, preto sa po každej zmene balíkov spúšťa `npx expo-doctor`.

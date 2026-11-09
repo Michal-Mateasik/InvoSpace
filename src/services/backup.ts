@@ -25,7 +25,8 @@ export async function createBackup(): Promise<BackupResult> {
   zipFile.create({ overwrite: true });
   const handle = zipFile.open(FileMode.Truncate);
   try {
-    const zip = new ZipWriter((bytes) => handle.writeBytes(bytes));
+    // Synchrónny zápis: ZipWriter zapisuje postupne a poradie zápisov sa nesmie pomiešať.
+    const zip = new ZipWriter((bytes) => handle.writeBytesSync(bytes));
 
     let photoCount = 0;
     let missingPhotos = 0;

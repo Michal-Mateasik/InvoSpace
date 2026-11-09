@@ -20,7 +20,8 @@ export async function persistImage(tempUri: string): Promise<string> {
 export function writeTempTextFile(fileName: string, content: string): string {
   const file = new File(Paths.cache, fileName);
   file.create({ overwrite: true });
-  file.write(content);
+  // writeSync: od SDK 58 je write() asynchrónne; tu potrebujeme mať súbor hotový, kým ho odovzdáme na zdieľanie.
+  file.writeSync(content);
   return file.uri;
 }
 

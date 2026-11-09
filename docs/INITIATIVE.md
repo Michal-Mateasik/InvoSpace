@@ -68,7 +68,7 @@ Vytvoriť mobilnú aplikáciu pre iPhone, v ktorej používateľ bloček **zaevi
 
 | Rozhodnutie | Dôvod |
 | --- | --- |
-| **React Native + Expo SDK 57, TypeScript (strict)** | Vývoj na Windows bez Macu; Expo Go na iPhone. |
+| **React Native + Expo SDK 58, TypeScript (strict)** | Vývoj na Windows bez Macu; Expo Go na iPhone. |
 | **Všetko beží v Expo Go** (bez vlastného buildu, bez natívneho kódu) | Obmedzenie projektu; Expo Go podporuje len najnovšie SDK. |
 | **Lokálne dáta v SQLite, fotky v súborovom systéme telefónu** | Žiadny backend ani prihlasovanie; súkromie používateľa. |
 | **Sumy v centoch (celé čísla)** | Vyhnúť sa chybám pri práci s desatinnými číslami. |

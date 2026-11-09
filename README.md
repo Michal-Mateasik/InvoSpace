@@ -16,7 +16,7 @@ Všetky dáta sú uložené lokálne v telefóne, bez servera a bez prihlasovani
 ## Použité technológie
 
 - **TypeScript** (strict mode)
-- **React Native + Expo SDK 57** (managed workflow, beží v aplikácii Expo Go)
+- **React Native + Expo SDK 58** (managed workflow, beží v aplikácii Expo Go)
 - **Expo Router** – navigácia (taby + stack)
 - `expo-sqlite` (databáza), `expo-file-system` (fotky a súbory), `expo-camera` (QR kódy, blesk), `expo-image-picker` (fotka z kamery/galérie), `expo-sharing` (zdieľanie exportu a zálohy), `expo-haptics` (vibrácia), `react-native-svg` (grafy)
 - Žiadny backend ani state-management knižnica; stav drží React (state, kontext `CompanyContext` a vlastné hooky).
@@ -134,6 +134,7 @@ Kontrola typov: `npm run typecheck`.
 - **Zdieľanie s ďalšími ľuďmi (EAS Update v Expo Go).** Projekt je na expo.dev pod organizáciou `mn1chos-team` (`@mn1chos-team/invospace`), `app.json` obsahuje `owner`, `extra.eas.projectId`, `updates.url` a `runtimeVersion`. Ide o EAS Update (nie EAS Build); appka sa naďalej otvára cez Expo Go a každý má dáta len vo svojom telefóne (nahráva sa len kód).
   - Nová verzia sa publikuje: `npx eas-cli update --branch main --message "popis" --platform ios --environment preview` (pri práci bez git repozitára s premennou `EAS_NO_VCS=1`).
   - Otvorenie: odkaz „EAS Dashboard“ z výstupu príkazu → tlačidlo Preview → QR kód naskenovať v Expo Go. V Expo Go sa dajú načítať len projekty, ktoré vlastní používateľ alebo jeho organizácia, preto musia byť ľudia členmi organizácie `mn1chos-team` na expo.dev.
+- **Upgrade na Expo SDK 58** (z SDK 57; React Native 0.88, React 19.3). Postup: `npm install expo@^58.0.0`, `npx expo install --fix`, `npx expo-doctor` (20/20 v poriadku). Zmeny v kóde: zápis a čítanie súborov je v SDK 58 asynchrónne, preto sa tam, kde je dôležité poradie (zápis exportu, ZIP zálohy, obnova), používajú synchrónne varianty (`writeSync`, `writeBytesSync`, `readBytesSync`); drobná úprava typu farby ikony v `app/(tabs)/_layout.tsx`; pribudol `expo-font` (vyžaduje ho balík ikon). Súbor `.npmrc` s `legacy-peer-deps=true` obchádza konflikt voliteľnej závislosti `react-native-windows` v balíku `datetimepicker`; bez neho `npm install` zlyhá. Appka vyžaduje Expo Go s podporou SDK 58.
 
 ## Dátový model
 

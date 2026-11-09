@@ -11,7 +11,8 @@ type IconName = React.ComponentProps<typeof Ionicons>['name'];
 // Pomocná funkcia, aby sa ikona nemusela opakovať v každom tabe.
 const tabIcon = (name: IconName) =>
   function TabIcon({ color, size }: { color: ColorValue; size: number }) {
-    return <Ionicons name={name} size={size} color={color} />;
+    // ColorValue môže byť aj číslo alebo null; Ionicons berie text, my farby zadávame ako text (colors.ts).
+    return <Ionicons name={name} size={size} color={typeof color === 'string' ? color : undefined} />;
   };
 
 export default function TabsLayout() {

@@ -33,7 +33,7 @@ export async function restoreFromBackup(file: File): Promise<RestoreResult> {
       size: file.size,
       read: (offset, length) => {
         handle.offset = offset;
-        return handle.readBytes(length);
+        return handle.readBytesSync(length);
       },
     };
 
@@ -57,7 +57,7 @@ export async function restoreFromBackup(file: File): Promise<RestoreResult> {
           const fileName = image_file.split('/').pop() as string;
           const target = new File(stagingDir, fileName);
           target.create({ overwrite: true });
-          target.write(readZipEntryData(source, entry));
+          target.writeSync(readZipEntryData(source, entry));
           imageUri = target.uri;
           photos++;
         } else {
