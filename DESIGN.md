@@ -363,3 +363,49 @@ Automatizované testy v repozitári nie sú. Overovanie prebiehalo takto:
 - `Alert.prompt` (premenovanie kategórie, zadanie predkontácie) funguje len na iOS.
 - Nie sú automatizované testy v repozitári.
 - Súbor `.npmrc` s `legacy-peer-deps=true` je potrebný, lebo balík `@react-native-community/datetimepicker` 9.2 uvádza ako voliteľnú závislosť `react-native-windows`, ktorá vyžaduje staršiu verziu React Native. Appka beží len na iPhone, ale bez tohto nastavenia `npm install` zlyhá. Nastavenie skrýva aj iné konflikty peer závislostí, preto sa po každej zmene balíkov spúšťa `npx expo-doctor`.
+
+## 16. Poradie implementácie
+
+Poradie zodpovedá fázam z [CLAUDE.md](CLAUDE.md) (sekcia 9). Každý krok je jeden beh pipeline `/implement DESIGN.md <číslo>`. Beh implementuje iba svoj krok, predchádzajúce kroky považuje za hotové a na konci musí prejsť `npm run typecheck`.
+
+**Cieľ a rozsah:** lokálna iPhone aplikácia v Expo Go na evidenciu dokladov, bez servera (sekcia 1 a [SPEC.md](SPEC.md)).
+
+| Krok | Obsah | Hlavné súbory | Hotovo, keď |
+| --- | --- | --- | --- |
+| 0 | Projekt, Expo Router, taby s prázdnymi obrazovkami | `app/(tabs)/*`, `app.json` | Taby sa dajú prepínať v Expo Go. |
+| 1 | Databáza a migrácie, ručné pridanie dokladu s fotkou, zoznam, detail, úprava, zmazanie | `src/db/`, `src/services/files.ts`, `app/receipt/*` | Doklad aj s fotkou prežije reštart aplikácie; pri zmazaní sa zmaže aj súbor. |
+| 2 | Kategórie, ich správa, zapamätanie kategórie pre obchod, filtre | `src/db/`, `src/services/categorize.ts`, `app/(tabs)/settings.tsx` | Druhý doklad z rovnakého obchodu má kategóriu predvyplnenú. |
+| 3 | Skenovanie QR eKasa, dopyt na API, záložný postup | `src/services/ekasa.ts`, `app/(tabs)/scan.tsx` | Reálny bloček predvyplní údaje; bez siete sa otvorí ručný formulár. |
+| 4 | Mesačný prehľad s grafom | `src/db/reports.ts`, `app/(tabs)/report.tsx` | Súčty sedia s dokladmi v zozname za ten istý mesiac. |
+| 5 | Export mesačného XML pre Pohodu a zdieľanie | `src/services/pohoda.ts`, `src/utils/vat.ts` | XML prejde validáciou voči XSD a importom do Pohody. |
+| 6 | Doladenie: blesk, haptika, prázdne stavy, chybové hlášky | `app/*`, `src/components/` | Aplikácia pôsobí dokončene. |
+| 7 | Doplnky: firmy, interné číslovanie, rozpis DPH, záloha a obnova | `src/db/`, `src/services/backup.ts`, `src/utils/internalNumber.ts` | Záloha sa dá obnoviť; poškodená záloha dáta nezničí. |
+
+Pravidlá pre každý krok: schéma sa mení len novou migráciou (sekcia 5.4), SQL ostáva v `src/db/`, nové balíky sa inštalujú cez `npx expo install` a nič nevyžaduje natívny kód.
+
+## 17. Testovacia stratégia
+
+Aplikácia zatiaľ nemá automatizované testy v repozitári (sekcia 15). Implementer a verifier preto používajú tieto kontroly:
+
+| Kontrola | Príkaz / postup | Kedy |
+| --- | --- | --- |
+| Kontrola typov (strict) | `npm run typecheck` | Po každom kroku, povinne. |
+| Zdravie závislostí | `npx expo-doctor` | Po každej zmene balíkov. |
+| Čisté moduly (`src/utils`, parsovanie QR, DPH, ZIP) | Ad hoc skript mimo repozitára alebo nový test, ak ho krok výslovne vyžaduje | Pri zmene týchto modulov. |
+| Migrácie a výmena dát | Skúška na testovacej SQLite databáze: migrácia z predchádzajúcej verzie, obnova zo zálohy | Pri zmene schémy alebo zálohy. |
+| Pohoda XML | Validácia voči XSD Stormware vrátane negatívneho testu | Pri každej zmene `pohoda.ts`. |
+| Čítanie kódu podľa CLAUDE.md | Verifier skontroluje sumy v centoch, SQL len v `src/db/`, timeout eKasa, ošetrenie chýb | Pri každom behu. |
+| Skúška na iPhone v Expo Go | Zoznam krokov v popise PR; robí Michal | Po každom kroku. |
+
+Agenti nevedia spustiť aplikáciu na telefóne. Čo sa bez nej nedá overiť, uvedú v reporte výslovne.
+
+## 18. Riziká
+
+| Riziko | Dôsledok | Ošetrenie |
+| --- | --- | --- |
+| Neoficiálne API eKasa sa zmení alebo vypadne | Skenovanie QR nepredvyplní údaje | Rozhranie v `ekasa.ts`, timeout 10 s, vždy funkčný ručný formulár a offline QR. |
+| Nový SDK vydaný skôr, než sa projekt presunie | Aplikácia sa v aktualizovanom Expo Go neotvorí | Po vydaní nového SDK presunúť projekt (sekcia 15). |
+| Nový balík s natívnym kódom mimo Expo Go | Aplikácia v Expo Go nebeží | Verifier kontroluje zmeny v `package.json`; inštalácia len cez `npx expo install`. |
+| Chybná migrácia alebo obnova zo zálohy | Strata dokladov | Migrácie verzované, obnova v dvoch fázach a v jednej transakcii. |
+| Zmena XML generátora | Pohoda import odmietne súbor | Povinná validácia voči XSD pri každej zmene. |
+| Chýbajúce automatizované testy | Regresie sa zachytia až pri skúške na telefóne | Typecheck, kontrola verifierom a skúška na iPhone po každom kroku. |
